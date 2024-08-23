@@ -118,3 +118,4 @@ function calculateVoterAverages() {
         voterAveragesElement.innerHTML += `<p><strong>${voter}</strong>: ${resultTier} (${average.toFixed(2)})</p>`;
     }
 }
+

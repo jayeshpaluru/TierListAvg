@@ -3,45 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tier Voting System</title>
+    <title>Group Tier List Averager</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <style>
-        body {
-            background-color: pink;
+        .page-content {
+            padding: 24px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .mdl-card {
+            min-height: 0;
+            width: 100%;
+            margin-bottom: 24px;
+        }
+        @media (min-width: 840px) {
+            .mdl-card {
+                width: calc(50% - 12px);
+            }
+        }
+        .mdl-card__title {
+            color: #fff;
+            background-color: #3f51b5;
+        }
+        #history, #result, #voterAverages {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <h1>Tier Voting System</h1>
-
-    <label for="voterSelect">Select Voter:</label>
-    <select id="voterSelect">
-        <option value="">Choose a voter</option>
-        <option value="Nevin">Nevin</option>
-        <option value="Aidan">Aidan</option>
-        <option value="Olivia">Olivia</option>
-        <option value="Sam">Sam</option>
-        <option value="Jayesh">Jayesh</option>
-    </select>
-
-    <h2>Vote for a Tier:</h2>
-    <button onclick="vote('S')">S</button>
-    <button onclick="vote('A')">A</button>
-    <button onclick="vote('B')">B</button>
-    <button onclick="vote('C')">C</button>
-    <button onclick="vote('D')">D</button>
-    <button onclick="vote('F')">F</button>
-
-    <button onclick="calculateAverage()">Calculate Average</button>
-    <button onclick="resetVotes()">Reset Current Round</button>
-    <button onclick="resetEverything()">Reset All Votes and History</button>
-    <button onclick="nextRound()">Next Round</button>
-    <button onclick="calculateVoterAverages()">Calculate Voter Averages</button>
-
-    <div id="result"></div>
-    <div id="history"></div>
-    <div id="averages"></div>
-    <div id="voterAverages"></div>
-
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <header class="mdl-layout__header">
+            <div class="mdl-layout__header-row">
+                <span class="mdl-layout-title">Group Tier List Averager</span>
+            </div>
+        </header>
+        <main class="mdl-layout__content">
+            <div class="page-content">
+                <div class="mdl-card mdl-shadow--2dp">
+                    <div class="mdl-card__title">
+                        <h2 class="mdl-card__title-text">Voting</h2>
+                    </div>
+                    <div class="mdl-card__supporting-text">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <select class="mdl-textfield__input" id="voterSelect">
+                                <option value="">Select a voter</option>
+                                <option value="Sam">Sam</option>
+                                <option value="Olivia">Olivia</option>
+                                <option value="Aidan">Aidan</option>
+                                <option value="Nevin">Nevin</option>
+                                <option value="Jayesh">Jayesh</option>
+                            </select>
+                            <label class="mdl-textfield__label" for="voterSelect">Voter</label>
+                        </div>
+                        <div>
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="vote('S')">S</button>
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="vote('A')">A</button>
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="vote('B')">B</button>
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="vote('C')">C</button>
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="vote('D')">D</button>
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="vote('F')">F</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="mdl-card mdl-shadow--2dp">
+                    <div class="mdl-card__title">
+                        <h2 class="mdl-card__title-text">Voting History</h2>
+                    </div>
+                    <div class="mdl-card__supporting-text" id="history"></div>
+                </div>
+                <div class="mdl-card mdl-shadow--2dp">
+                    <div class="mdl-card__title">
+                        <h2 class="mdl-card__title-text">Average Tier per Round</h2>
+                    </div>
+                    <div class="mdl-card__supporting-text" id="result"></div>
+                </div>
+                <div class="mdl-card mdl-shadow--2dp">
+                    <div class="mdl-card__title">
+                        <h2 class="mdl-card__title-text">Average Tier per Voter</h2>
+                    </div>
+                    <div class="mdl-card__supporting-text" id="voterAverages"></div>
+                </div>
+            </div>
+            <div class="action-buttons">
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="nextRound()">
+                    Next Round
+                </button>
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="calculateAverage()">
+                    Calculate Average
+                </button>
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="calculateVoterAverages()">
+                    Calculate Voter Averages
+                </button>
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onclick="resetVotes()">
+                    Reset Current Round
+                </button>
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onclick="resetEverything()">
+                    Reset Everything
+                </button>
+            </div>
+        </main>
+    </div>
+    <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
+        <div class="mdl-snackbar__text"></div>
+        <button class="mdl-snackbar__action" type="button"></button>
+    </div>
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <script src="index.js"></script>
+    <script>
+        function showToast(message) {
+            var snackbarContainer = document.querySelector('#demo-toast-example');
+            var data = {message: message};
+            snackbarContainer.MaterialSnackbar.showSnackbar(data);
+        }
+        // Replace alert calls with showToast
+        window.alert = showToast;
+    </script>
 </body>
 </html>
