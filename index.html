@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tier Voting System</title>
+    <style>
+        body {
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tier Voting System</h1>
+
+    <label for="voterSelect">Select Voter:</label>
+    <select id="voterSelect">
+        <option value="">Choose a voter</option>
+        <option value="Nevin">Nevin</option>
+        <option value="Aidan">Aidan</option>
+        <option value="Olivia">Olivia</option>
+        <option value="Sam">Sam</option>
+        <option value="Jayesh">Jayesh</option>
+    </select>
+
+    <h2>Vote for a Tier:</h2>
+    <button onclick="vote('S')">S</button>
+    <button onclick="vote('A')">A</button>
+    <button onclick="vote('B')">B</button>
+    <button onclick="vote('C')">C</button>
+    <button onclick="vote('D')">D</button>
+    <button onclick="vote('F')">F</button>
+
+    <button onclick="calculateAverage()">Calculate Average</button>
+    <button onclick="resetVotes()">Reset Current Round</button>
+    <button onclick="resetEverything()">Reset All Votes and History</button>
+    <button onclick="nextRound()">Next Round</button>
+    <button onclick="calculateVoterAverages()">Calculate Voter Averages</button>
+
+    <div id="result"></div>
+    <div id="history"></div>
+    <div id="averages"></div>
+    <div id="voterAverages"></div>
+
+    <script src="index.js"></script>
+</body>
+</html>
